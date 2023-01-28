@@ -39,15 +39,10 @@ class Loader(yaml.SafeLoader):
     def include(self, node):
         yaml_data = False
         filename = os.path.join(self._root, self.construct_scalar(node))
+
         i = False
         
         for path in filename.split(" !include "):
-            if i == False:
-                path_prefix = path.split("/")[0]
-                i = True
-            else:
-                path = f"{path_prefix}/{path}"
-
             with open(path, 'r') as f:
                 data = yaml.load(f, Loader)   
                 
